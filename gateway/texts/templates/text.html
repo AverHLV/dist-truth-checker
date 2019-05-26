@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+{% load texts_extras %}
+{% block content %}
+    <div class="row"><div class="column">
+        <table>
+            <tr>
+                <td>Created: {{ text.created }}</td>
+            </tr>
+
+            <tr>
+                <td>Headline: {{ text.headline }}</td>
+            </tr>
+
+            <tr>
+                <td>Text: {{ text.raw_text }}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>Topic modeling result: {{ services_data|get_item:'tm' }}</p>
+                    <p>SEO processing evaluation: {{ services_data|get_item:'seo' }}</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Status: {{ status }}</td>
+            </tr>
+        </table>
+    </div></div>
+{% endblock %}

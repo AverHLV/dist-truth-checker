@@ -1,0 +1,4 @@
+migrations
+secret.json
+*.log
+run_*.py

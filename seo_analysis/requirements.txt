@@ -1,0 +1,5 @@
+Django==2.0.12
+djangorestframework==3.9.4
+numpy==1.16.3
+scikit-fuzzy==0.4.1
+Unipath==1.1

@@ -1,0 +1,8 @@
+Django==2.0.12
+django-crispy-forms==1.7.2
+psycopg2==2.8.2
+psycopg2-binary==2.8.2
+nltk==3.4.1
+langdetect==1.0.7
+aiohttp==3.5.4
+Unipath==1.1
