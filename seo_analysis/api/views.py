@@ -23,7 +23,7 @@ class ModelingResult(APIView):
 
 
 class CheckText(APIView):
-    """ Create Text instance, perform topic modeling and return results """
+    """ Create Text instance, perform SEO metrics evaluation and return results """
 
     @staticmethod
     def post(request):
