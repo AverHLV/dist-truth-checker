@@ -1,9 +1,14 @@
+from django.db import OperationalError
 from django.contrib.auth.models import User
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from utils import secret_dict
 
-superuser = User.objects.filter(is_superuser=True).first()
+try:
+    superuser = User.objects.filter(is_superuser=True).first()
+
+except OperationalError:
+    superuser = None
 
 
 class TokenAuthentication(BaseAuthentication):

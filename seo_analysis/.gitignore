@@ -1,4 +1,5 @@
 migrations
+secret.json
 seo_db
 *.log
 run_*.py

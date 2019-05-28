@@ -10,13 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-from utils import secret_dict
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secret_dict['secret_key']
+SECRET_KEY = '7bf@u&8gbt%b!s0xrrmr2tjpj!*c@)l#q%$98+6f_0r#3=(j92'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -125,10 +123,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': secret_dict['db_name'],
-        'USER': secret_dict['db_admin'],
-        'PASSWORD': secret_dict['db_pass'],
-        'HOST': secret_dict['db_host']
+        'NAME': 'topic_db',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': ''
     }
 }
 
