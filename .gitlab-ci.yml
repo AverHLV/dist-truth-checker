@@ -11,8 +11,8 @@ all_tests:
   stage: test
   script:
    - echo $GW_SECRET | base64 -d > /builds/AverHLV/dist-truth-checker/gateway/config/secret.json
-   - echo /builds/AverHLV/dist-truth-checker/gateway/config/secret.json
+   - cat /builds/AverHLV/dist-truth-checker/gateway/config/secret.json
    - echo $SEO_SECRET | base64 -d > /builds/AverHLV/dist-truth-checker/seo_analysis/config/secret.json
-   - echo /builds/AverHLV/dist-truth-checker/seo_analysis/config/secret.json
+   - cat /builds/AverHLV/dist-truth-checker/seo_analysis/config/secret.json
    - echo $TM_SECRET | base64 -d > /builds/AverHLV/dist-truth-checker/topic_modeling/config/secret.json
    - bash ./tests.sh
