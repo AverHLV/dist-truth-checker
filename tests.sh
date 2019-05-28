@@ -1,8 +1,10 @@
 #!/bin/bash
 
-python gateway/manage.py makemigrations
-python topic_modeling/manage.py makemigrations
-python seo_analysis/manage.py makemigrations
+psql -c "create database gateway_db;"
+
+python gateway/manage.py makemigrations texts texts_admin
+python topic_modeling/manage.py makemigrations api
+python seo_analysis/manage.py makemigrations api
 
 python gateway/manage.py migrate
 python topic_modeling/manage.py migrate
