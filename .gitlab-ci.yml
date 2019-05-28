@@ -2,9 +2,7 @@ image: averhlv/tc_test:latest
 
 services:
   - postgres:latest
-  - alias:postgres
   - mongo:latest
-  - alias:mongo
 
 stages:
   - test
