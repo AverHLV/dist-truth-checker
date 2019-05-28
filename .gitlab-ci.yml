@@ -1,8 +1,10 @@
 image: averhlv/tc_test:latest
 
 services:
-  - postgres:latest
-  - mongo:latest
+  - name: postgres:latest
+	alias: postgres
+  - name: mongo:latest
+	alias: mongo
 
 stages:
   - test
