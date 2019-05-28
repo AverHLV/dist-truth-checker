@@ -17,5 +17,10 @@ def get_secret(filename):
     except KeyError as k:
         raise ImproperlyConfigured('Add the {0} field to json secret'.format(k))
 
+    except IOError:
+        # local and ci settings
+
+        return {}
+
 
 secret_dict = get_secret(constants.secret_filename)
