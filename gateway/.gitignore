@@ -1,5 +1,4 @@
 migrations
-secret.json
 secret-ci.json
 *.log
 run_*.py
