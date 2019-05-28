@@ -1,5 +1,7 @@
 # Truth checking distributed service
 
+[![codecov](https://codecov.io/gh/AverHLV/dist-truth-checker/branch/master/graph/badge.svg)](https://codecov.io/gh/AverHLV/dist-truth-checker)
+
 A set of services that calculate some parameters of news articles in order to determine their veracity.
 
 ## Services
