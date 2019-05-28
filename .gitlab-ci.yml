@@ -1,0 +1,13 @@
+image: averhlv/tc_test:latest
+
+services:
+  - postgres:latest
+  - mongo:latest
+
+stages:
+  - test
+
+all_tests:
+  stage: test
+  script:
+   - bash ./tests.sh
