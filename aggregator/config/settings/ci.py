@@ -123,11 +123,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'aggregator_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'postgres',
+        'USER': 'aver',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
         'PORT': '',
         'ATOMIC_REQUESTS': True
     }
