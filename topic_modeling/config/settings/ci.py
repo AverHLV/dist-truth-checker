@@ -122,11 +122,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'djongo',
         'NAME': 'topic_db',
-        'USER': 'aver',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'mongo',
         'PORT': '',
         'ATOMIC_REQUESTS': True
     }

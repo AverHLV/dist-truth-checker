@@ -1,5 +1,9 @@
 image: averhlv/tc_test:latest
 
+services:
+  - postgres:latest
+  - mongo:latest
+
 stages:
   - test
 
