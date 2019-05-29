@@ -1,6 +1,6 @@
 # Truth checking distributed service
 
-[![codecov](https://codecov.io/gh/AverHLV/dist-truth-checker/branch/master/graph/badge.svg)](https://codecov.io/gh/AverHLV/dist-truth-checker)
+![coverage](https://img.shields.io/codecov/c/github/AverHLV/dist-truth-checker.svg) ![build_status](https://img.shields.io/gitlab/pipeline/AverHLV/dist-truth-checker/dev.svg)
 
 A set of services that calculate some parameters of news articles in order to determine their veracity.
 
