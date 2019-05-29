@@ -6,7 +6,7 @@ A set of services that calculate some parameters of news articles in order to de
 
 ## Services
 
-- Gateway: client interface, aggregating texts and gathering checking results;
+- Aggregator: client interface, texts managing and gathering checking results;
 - Topic modeling: computing similarity of article headline and text;
 - SEO analysis: calculating most common SEO text processing metrics and evaluating them.
 
