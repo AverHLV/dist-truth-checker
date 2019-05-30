@@ -260,7 +260,7 @@ class LDA(object):
 
     def compute_similarity(self, text1, text2):
         """
-        Compute cosine similarity for two given texts
+        Compute the Jensen-Shannon distance between probability arrays of two texts
 
         :param text1: list of str
         :param text2: list of str
