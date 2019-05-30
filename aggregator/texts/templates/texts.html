@@ -7,7 +7,6 @@
                     {% for text in texts %}
                         <tr>
                             <td>{{ text }}</td>
-                            <td>{{ text.get_status_repr }}</td>
                             <td style="text-align: center;"><a href="/check/{{ text.pk }}/">detail</a></td>
                         </tr>
                     {% endfor %}
@@ -19,24 +18,20 @@
         </div>
     </div></div>
 
-    {% if texts %}
+    {% if is_paginated %}
         <div class="paginator">
-            {% if texts.has_previous %}
-                {% if texts.previous_page_number != 1 %}
-                    <a href="/page/1/">&laquo;</a>
-                {% endif %}
-
-                <a href="/page/{{ texts.previous_page_number }}/">&lt;</a>
+            {% if page_obj.has_previous %}
+                <a href="/page/{{ page_obj.previous_page_number }}/">&lt;</a>
             {% else %}
                 &lt;
             {% endif %}
 
-            {% if texts.has_next %}
-                <a href="/page/{{ texts.next_page_number }}/">&gt;</a>
+            {% for page in page_obj.paginator.page_range %}
+                <a href="/page/{{ forloop.counter }}/">{{ page }}</a>
+            {% endfor %}
 
-                {% if texts.next_page_number != texts.paginator.num_pages %}
-                    <a href="/page/{{ texts.paginator.num_pages }}/">&raquo;</a>
-                {% endif %}
+            {% if page_obj.has_next %}
+                <a href="/page/{{ page_obj.next_page_number }}/">&gt;</a>
             {% else %}
                 &gt;
             {% endif %}

@@ -13,6 +13,7 @@ class TextsView(generic.ListView):
     context_object_name = 'texts'
     ordering = '-created'
     template_name = 'texts.html'
+    page_kwarg = 'page_number'
     paginate_by = constants.texts_count
 
 
