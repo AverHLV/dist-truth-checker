@@ -1,0 +1,12 @@
+site_name: TCD service docs
+theme: readthedocs
+repo_url: https://github.com/AverHLV/dist-truth-checker
+remote_branch: dev
+nav:
+    - Home: index.md
+    - Aggregator service: aggregator.md
+    - API specification: api.md
+    - Architecture: architecture.md
+    - SEO analysis service: seo_analysis.md
+    - Service layout template: service_layout.md
+    - Topic modeling service: topic_modeling.md
