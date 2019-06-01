@@ -1,6 +1,6 @@
 import logging
 import asyncio
-from aiohttp import ClientSession, ClientTimeout
+import aiohttp
 from aiohttp.client_exceptions import ClientConnectorError
 from config import constants
 from texts_admin.models import TextsAdmin
@@ -27,8 +27,21 @@ class ARClient(object):
         self.timeout = timeout
         self.services = services
 
+        # send requests tracing
+
+        self.trace_config = aiohttp.TraceConfig()
+        self.trace_config.on_request_end.append(self.on_request_end)
+
+        # request custom headers
+
         superuser = TextsAdmin.objects.filter(is_superuser=True).first()
         self.headers = {'X-Token': superuser.token}
+
+    @staticmethod
+    async def on_request_end(_session, _trace_config_ctx, params):
+        """ Invoke when a request ended """
+
+        logger.info('{0} {1} {2}'.format(params.method, params.url, params.response.status))
 
     async def request_get(self, service, message_id):
         """ Get check results by get request """
@@ -64,7 +77,12 @@ class ARClient(object):
         """
 
         self.responses = {}
-        self.session = ClientSession(headers=self.headers, timeout=ClientTimeout(total=self.timeout))
+
+        self.session = aiohttp.ClientSession(
+            headers=self.headers,
+            timeout=aiohttp.ClientTimeout(total=self.timeout),
+            trace_configs=[self.trace_config]
+        )
 
         try:
             if gather_results:
