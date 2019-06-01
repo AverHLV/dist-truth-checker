@@ -1,0 +1,2 @@
+terminal:
+	image: averhlv/tc_test:latest
