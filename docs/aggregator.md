@@ -34,15 +34,17 @@ Implements requests timeout, adding custom headers and logging.
 ### checker
 
 Text correctness checker. Workflow:
+
 - detect language by langdetect, port of Google's language-detection library;
 - delete all non-language symbols except spaces;
-- check text correctness by entropic criteria, H1 and H2 values:
+- check text correctness by entropic criteria;
+- stem words by Snowball stemmers;
+- delete stopwords.
+
+H1 and H2 values for entropic criteria:
 
 | Language  |  H1  |  H2  |
 |:---------:|:----:|:----:|
 |  English  | 4.18 | 3.95 |
 |  Russian  |  4.5 |  4.2 |
 | Ukrainian |  4.6 |  4.2 |
-
-- stem words by Snowball stemmers;
-- delete stopwords.

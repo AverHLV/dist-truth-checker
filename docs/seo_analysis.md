@@ -21,6 +21,7 @@ Modeling text topics using Latent Dirichlet Allocation.
 Implements an interface of the fuzzy output system based on the Mamdani algorithm.
 
 Input variables:
+
 - ns_classic: classic text nausea;
 - ns_academic: academic text nausea.
 
@@ -29,6 +30,7 @@ the boundaries of the functions are built with the expert estimates of the requi
 value for the selected parameter.
 
 System rules:
+
  - if ns_classic is bad or ns_academic is bad then mark is bad;
  - if ns_classic is average and ns_academic is average then mark is average;
  - if ns_classic is good and ns_academic is average then mark is average;
