@@ -3,7 +3,7 @@
 ![coverage](https://img.shields.io/codecov/c/github/AverHLV/dist-truth-checker.svg) ![build_status](https://img.shields.io/gitlab/pipeline/AverHLV/dist-truth-checker/dev.svg) [![Documentation Status](https://readthedocs.org/projects/dist-truth-checker/badge/?version=latest)](https://dist-truth-checker.readthedocs.io/en/latest/?badge=latest)
 
 
-A set of services that calculate some parameters of news articles in order to determine their veracity.
+A set of services that calculates some parameters of news articles in order to determine their veracity.
 
 ## Services
 
