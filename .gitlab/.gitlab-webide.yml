@@ -1,2 +1,3 @@
 terminal:
 	image: averhlv/tc_test:latest
+	script: sleep 60
