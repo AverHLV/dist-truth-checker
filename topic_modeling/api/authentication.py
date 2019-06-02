@@ -1,4 +1,5 @@
 from django.db import OperationalError
+from djongo.sql2mongo import SQLDecodeError
 from django.contrib.auth.models import User
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
@@ -7,7 +8,7 @@ from utils import secret_dict
 try:
     superuser = User.objects.filter(is_superuser=True).first()
 
-except OperationalError:
+except (OperationalError, SQLDecodeError):
     superuser = None
 
 
