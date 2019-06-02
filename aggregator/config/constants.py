@@ -41,8 +41,8 @@ timeout = 20
 
 if environ['DJANGO_SETTINGS_MODULE'] == 'config.settings.production':
     services = {
-        'tm': 's',
-        'seo': 'a'
+        'tm': 'http://165.22.195.65:8000',
+        'seo': 'http://165.22.205.17:8000'
     }
 
 else:
