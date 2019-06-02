@@ -6,7 +6,7 @@ from config import constants
 def get_secret(filename):
     """ Get the secret from json file or raise exception """
 
-    fields = 'secret_key', 'db_admin', 'db_pass', 'db_name', 'db_host', 'hosts', 'admins', 'service_tokens'
+    fields = 'secret_key', 'db_admin', 'db_pass', 'db_name', 'db_host', 'db_port', 'hosts', 'admins', 'service_tokens'
 
     try:
         with open(filename) as secret:
