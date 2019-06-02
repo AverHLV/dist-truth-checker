@@ -1,5 +1,6 @@
 migrations
 secret.json
+uwsgi.ini
 seo_db
 *.log
 run_*.py
