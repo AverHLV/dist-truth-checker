@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+from unipath import Path
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -99,6 +101,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+BASE_DIR = Path(__file__).absolute().ancestor(3)
+STATIC_ROOT = BASE_DIR.child('static')
 
 TEMPLATES = [
     {
