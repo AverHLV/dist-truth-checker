@@ -1,5 +1,6 @@
 from django.core.exceptions import ImproperlyConfigured
 from unipath import Path
+from os import environ
 
 try:
     # base paths
@@ -38,10 +39,17 @@ load_encoding = 'utf8'
 
 timeout = 20
 
-services = {
-    'tm': 'http://127.0.0.1:7000',
-    'seo': 'http://127.0.0.1:7001'
-}
+if environ['DJANGO_SETTINGS_MODULE'] == 'config.settings.production':
+    services = {
+        'tm': 's',
+        'seo': 'a'
+    }
+
+else:
+    services = {
+        'tm': 'http://127.0.0.1:7000',
+        'seo': 'http://127.0.0.1:7001'
+    }
 
 # texts_admin.models
 
