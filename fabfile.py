@@ -12,7 +12,7 @@ def deploy(host, user, password, image):
     connection.run(
         '''
             docker run -p 8000:8000 {0} /bin/bash -c "
-            git pull --depth=1 origin dev;
+            git pull --depth=1 origin master;
             python manage.py collectstatic --settings=config.settings.production;
             uwsgi uwsgi.ini" &
         '''.format(image))
