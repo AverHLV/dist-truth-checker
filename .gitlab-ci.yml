@@ -1,12 +1,20 @@
 image: averhlv/tc_test:latest
 
 services:
-  - mongo:latest
+    - mongo:latest
 
 stages:
-  - test
+    - test
+    - deploy
 
 all_tests:
-  stage: test
-  script:
-   - bash ./tests.sh
+    stage: test
+    script:
+        - bash ./tests.sh
+
+deploy:
+    stage: deploy
+    only:
+        - master
+    script:
+        - python fabfile.py
