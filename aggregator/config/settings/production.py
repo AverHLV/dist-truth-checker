@@ -125,11 +125,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+KEY_PREFIX = ''
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': secret_dict['hazelcast-ip'],
-        'KEY_FUNCTION': 'config.cache.simple_key_maker'
+        'KEY_PREFIX': 'dist-cache'
     }
 }
 
