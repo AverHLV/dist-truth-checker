@@ -128,9 +128,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': secret_dict['hazelcast-ip']
+        'LOCATION': secret_dict['hazelcast-ip'],
+        'KEY_FUNCTION': 'config.cache.simple_key_maker'
     }
 }
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
