@@ -72,7 +72,6 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
@@ -125,13 +124,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-KEY_PREFIX = ''
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': secret_dict['hazelcast-ip'],
-        'KEY_PREFIX': 'dist-cache'
+        'LOCATION': secret_dict['hazelcast-ips']
     }
 }
 

@@ -6,7 +6,7 @@ from config import constants
 def get_secret(filename):
     """ Get the secret from json file or raise exception """
 
-    fields = 'secret_key', 'db_admin', 'db_pass', 'db_name', 'db_host', 'db_port', 'hazelcast-ip', 'hosts', 'admins'
+    fields = 'secret_key', 'db_admin', 'db_pass', 'db_name', 'db_host', 'db_port', 'hazelcast-ips', 'hosts', 'admins'
 
     try:
         with open(filename) as secret:
