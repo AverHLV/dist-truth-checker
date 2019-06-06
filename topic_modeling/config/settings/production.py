@@ -104,7 +104,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'config.middleware.ReadonlyMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -138,10 +139,30 @@ DATABASES = {
         'NAME': secret_dict['db_name'],
         'USER': secret_dict['db_admin'],
         'PASSWORD': secret_dict['db_pass'],
-        'HOST': secret_dict['db_host'],
+        'HOST': secret_dict['db_host_master'],
+        'PORT': secret_dict['db_port']
+    },
+
+    'secondary1': {
+        'ENGINE': 'djongo',
+        'NAME': secret_dict['db_name'],
+        'USER': secret_dict['db_admin'],
+        'PASSWORD': secret_dict['db_pass'],
+        'HOST': secret_dict['db_host_slave1'],
+        'PORT': secret_dict['db_port']
+    },
+
+    'secondary2': {
+        'ENGINE': 'djongo',
+        'NAME': secret_dict['db_name'],
+        'USER': secret_dict['db_admin'],
+        'PASSWORD': secret_dict['db_pass'],
+        'HOST': secret_dict['db_host_slave2'],
         'PORT': secret_dict['db_port']
     }
 }
+
+DATABASE_ROUTERS = 'config.routers.MongoRouter',
 
 # Security settings
 SECURE_CONTENT_TYPE_NOSNIFF = False
