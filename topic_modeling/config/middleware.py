@@ -1,6 +1,5 @@
-from django.shortcuts import redirect
-from django.urls import reverse
 from config.routers import MongoClusterConnector
+from api.views import ReadonlyResponse
 
 
 class ReadonlyMiddleware(object):
@@ -15,6 +14,6 @@ class ReadonlyMiddleware(object):
             primary = self.connector.get_primary()
 
             if primary is None:
-                return redirect(reverse('readonly'))
+                return ReadonlyResponse.as_view()(request).render()
 
         return self.get_response(request)

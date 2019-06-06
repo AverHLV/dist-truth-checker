@@ -51,5 +51,5 @@ class ReadonlyResponse(APIView):
     """ Readonly response if primary db not alive """
 
     @staticmethod
-    def get(_request):
-        return Response({'detail': 'Service is in read-only mode'}, status=status.HTTP_409_CONFLICT)
+    def post(_request):
+        return Response({'detail': 'Service is in read-only mode.'}, status=status.HTTP_409_CONFLICT)
