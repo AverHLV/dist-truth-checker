@@ -57,6 +57,7 @@ class ReadonlyTest(APITestCase):
 
     def setUp(self):
         self.factory = APIRequestFactory()
+        User.objects.create_user('user', 'email@email.com', 'password')
 
     def test_readonly_response(self):
         request = self.factory.get('/api/check/readonly/')
