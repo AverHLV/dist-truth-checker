@@ -45,3 +45,11 @@ class CheckText(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ReadonlyResponse(APIView):
+    """ Readonly response if primary db not alive """
+
+    @staticmethod
+    def get(_request):
+        return Response({'detail': 'Service is in read-only mode'}, status=status.HTTP_409_CONFLICT)
