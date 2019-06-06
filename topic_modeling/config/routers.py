@@ -1,20 +1,23 @@
 from pymongo import MongoClient
 from random import randint
+from time import sleep
 from config.settings import production
 
 
 class MongoClusterConnector(object):
     """ MongoDB replica set connector """
 
-    def __init__(self, databases=production.DATABASES):
+    def __init__(self, databases=production.DATABASES, discover_timeout=0.5):
         """
         MongoClusterConnector initialization
 
         :param databases: django settings databases dictionary
+        :param discover_timeout: timeout for discovering whole cluster by MongoClient
         """
 
         self.databases = [(db, databases[db]['HOST'], str(databases[db]['PORT'])) for db in databases]
         self.client = MongoClient([db[1] + ':' + db[2] for db in self.databases], replicaset='rs0')
+        sleep(discover_timeout)
 
     def __del__(self):
         """ Destructor: close MongoClient before destruction """
