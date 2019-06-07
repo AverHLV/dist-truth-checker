@@ -1,30 +1,14 @@
 FROM python:3.7.3
 
+EXPOSE 8000
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 0
 
-RUN mkdir /code
-WORKDIR /code
-COPY requirements.txt /code/
-
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install --no-cache-dir uwsgi
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN mkdir /dist-truth-checker
-WORKDIR /dist-truth-checker
-
-RUN git init
-RUN git remote add origin https://github.com/AverHLV/dist-truth-checker.git
-RUN git config core.sparsecheckout true
-RUN echo "topic_modeling/*" >> .git/info/sparse-checkout
-
-RUN mkdir /dist-truth-checker/topic_modeling
-RUN mkdir /dist-truth-checker/topic_modeling/config
-COPY uwsgi.ini /dist-truth-checker/topic_modeling
-COPY config/secret.json /dist-truth-checker/topic_modeling/config
-WORKDIR /dist-truth-checker/topic_modeling/
-
-EXPOSE 8000
+RUN mkdir /dist-truth-checker && mkdir /dist-truth-checker/topic_modeling
+WORKDIR /dist-truth-checker/topic_modeling
 
 CMD ["bash"]
