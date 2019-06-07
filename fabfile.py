@@ -53,7 +53,7 @@ if __name__ == '__main__':
         'aggregator0': {'host': os.environ['AGG0'], 'user': host_user, 'password': passw, 'image': 'averhlv/aggregator',
                         'name': 'aggregator', 'secret': os.environ['AGG_SECRET']},
         'aggregator1': {'host': os.environ['AGG1'], 'user': host_user, 'password': passw, 'image': 'averhlv/aggregator',
-                        'name': 'aggregator', 'secret': os.environ['USER']},
+                        'name': 'aggregator', 'secret': os.environ['AGG_SECRET']},
         'seo': {'host': os.environ['SEO'], 'user': host_user, 'password': passw, 'image': 'averhlv/seo',
                 'name': 'seo_analysis', 'secret': os.environ['SEO_SECRET']},
         'topic': {'host': os.environ['TOPIC'], 'user': host_user, 'password': passw, 'image': 'averhlv/topic',
