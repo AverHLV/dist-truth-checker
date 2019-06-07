@@ -23,7 +23,7 @@ def save_secret(name, secret):
     print('\n{0} secret saved\n'.format(name))
 
 
-def deploy(host, user, password, image, name, _secret):
+def deploy(host, user, password, image, name):
     """ Deploy Django app from docker container on specified host """
 
     tar_dir(name, name + '.tar.gz')
@@ -63,5 +63,6 @@ if __name__ == '__main__':
     for service in params:
         save_secret(params[service]['name'], params[service]['secret'])
         print('\n{0} deploy started\n'.format(service))
-        deploy(**params[service])
+        deploy(params[service]['host'], params[service]['user'], params[service]['password'], params[service]['image'],
+               params[service]['name'])
         print('\n{0} deployed\n'.format(service))
