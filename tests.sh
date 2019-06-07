@@ -6,4 +6,4 @@ coverage run -a topic_modeling/manage.py test api.tests
 coverage run -a seo_analysis/manage.py test api.tests
 coverage report
 
-pip install codecov && codecov -t $CODECOV_TOKEN
+codecov -t $CODECOV_TOKEN

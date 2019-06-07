@@ -1,9 +1,15 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from os import environ
 from .models import Text
 from .serializers import CheckRequestSerializer, CheckResponseSerializer
 from .helpers import lda_models, ref_messages
+
+if environ['DJANGO_SETTINGS_MODULE'] == 'config.settings.production':
+    from config.connector import cluster_connector
+else:
+    cluster_connector = None
 
 
 class ModelingResult(APIView):
@@ -27,6 +33,13 @@ class CheckText(APIView):
 
     @staticmethod
     def post(request):
+        if cluster_connector is not None:
+            if cluster_connector.get_primary() is None:
+                return Response(
+                    {'detail': 'Service is in read-only mode.'}, status=status.HTTP_409_CONFLICT,
+                    content_type='application/json'
+                )
+
         serializer = CheckRequestSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -45,11 +58,3 @@ class CheckText(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class ReadonlyResponse(APIView):
-    """ Readonly response if primary db not alive """
-
-    @staticmethod
-    def post(_request):
-        return Response({'detail': 'Service is in read-only mode.'}, status=status.HTTP_409_CONFLICT)

@@ -1,5 +1,4 @@
 migrations
 secret.json
-uwsgi.ini
 *.log
 run_*.py

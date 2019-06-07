@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase, force_authenticate
 from rest_framework.test import APIRequestFactory
 from rest_framework import status
 from .test_lda import test_data
-from ..views import ModelingResult, CheckText, ReadonlyResponse
+from ..views import ModelingResult, CheckText
 from ..models import Text
 
 
@@ -50,18 +50,3 @@ class CheckTextTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertDictEqual(response.data, test_data['CheckTextTest']['response_data'])
-
-
-class ReadonlyTest(APITestCase):
-    """ Test readonly state response code """
-
-    def setUp(self):
-        self.factory = APIRequestFactory()
-        User.objects.create_user('user', 'email@email.com', 'password')
-
-    def test_readonly_response(self):
-        request = self.factory.post('/api/check/readonly/')
-        force_authenticate(request, user=User.objects.get(username='user'))
-        response = ReadonlyResponse.as_view()(request)
-
-        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
