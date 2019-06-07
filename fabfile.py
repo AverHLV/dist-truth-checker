@@ -23,7 +23,7 @@ def save_secret(name, secret):
     print('\n{0} secret saved\n'.format(name))
 
 
-def deploy(host, user, password, image, name):
+def deploy(host, user, password, image, name, _secret):
     """ Deploy Django app from docker container on specified host """
 
     tar_dir(name, name + '.tar.gz')
