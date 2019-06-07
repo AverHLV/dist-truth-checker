@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase, force_authenticate
 from rest_framework.test import APIRequestFactory
 from rest_framework import status
 from .test_lda import test_data
-from ..views import ModelingResult, CheckText, ReadonlyResponse
+from ..views import ModelingResult, CheckText
 from ..models import Text
 
 
