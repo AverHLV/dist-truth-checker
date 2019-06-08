@@ -134,7 +134,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'mysql.connector.django',
         'NAME': secret_dict['db_name'],
         'USER': secret_dict['db_admin'],
         'PASSWORD': secret_dict['db_pass'],

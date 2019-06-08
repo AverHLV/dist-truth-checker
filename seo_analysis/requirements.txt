@@ -1,5 +1,6 @@
 Django==2.0.12
 djangorestframework==3.9.4
+mysql-connector-python==8.0.16
 numpy==1.16.3
 matplotlib==3.1.0
 scikit-fuzzy==0.4.1
