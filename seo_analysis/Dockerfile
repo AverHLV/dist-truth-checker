@@ -10,6 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN mkdir /dist-truth-checker && mkdir /dist-truth-checker/seo_analysis
 WORKDIR /dist-truth-checker/seo_analysis
-COPY seo_db .
 
 CMD ["bash"]
