@@ -1,7 +1,7 @@
 import logging
 import asyncio
 import aiohttp
-from aiohttp.client_exceptions import ClientConnectorError
+from aiohttp import client_exceptions
 from config import constants
 from texts_admin.models import TextsAdmin
 
@@ -46,25 +46,14 @@ class ARClient(object):
     async def request_get(self, service, message_id):
         """ Get check results by get request """
 
-        try:
-            async with self.session.get(self.url_get.format(ip=self.services[service], message_id=message_id)) \
-                    as response:
-                return await response.json(), response.status
-
-        except ClientConnectorError:
-            logger.critical('Connection error while get request to service: {0}, id: {1}.'.format(service, message_id))
-            return {'detail': 'Service unavailable.'}, 503
+        async with self.session.get(self.url_get.format(ip=self.services[service], message_id=message_id)) as response:
+            return await response.json(), response.status
 
     async def request_post(self, service, data):
         """ Start text check by post request """
 
-        try:
-            async with self.session.post(self.url_post.format(ip=self.services[service]), json=data) as response:
-                return await response.json(), response.status
-
-        except ClientConnectorError:
-            logger.critical('Connection error while post request to service: {0}, data: {1}.'.format(service, data))
-            return {'detail': 'Service unavailable.'}, 503
+        async with self.session.post(self.url_post.format(ip=self.services[service]), json=data) as response:
+            return await response.json(), response.status
 
     async def send_requests(self, parameter, gather_results):
         """
@@ -88,18 +77,41 @@ class ARClient(object):
             if gather_results:
                 assert isinstance(parameter, str), '"parameter" should be a string in gather_results=True case.'
 
-                self.responses = {
-                    service: await self.request_get(service, parameter)
-                    for service in self.services
-                }
-
             else:
                 assert isinstance(parameter, dict), '"parameter" should be a dictionary in gather_results=False case.'
 
-                self.responses = {
-                    service: await self.request_post(service, parameter[service])
-                    for service in self.services
-                }
+            self.responses = {}
+
+            for service in self.services:
+                request_type = 'None'
+
+                try:
+                    if gather_results:
+                        request_type = 'GET'
+                        self.responses[service] = await self.request_get(service, parameter)
+
+                    else:
+                        request_type = 'POST'
+                        self.responses[service] = await self.request_post(service, parameter[service])
+
+                except asyncio.TimeoutError:
+                    logger.critical('Timeout error while request to service: {0}, {1}'.format(service, request_type))
+
+                    self.responses[service] = (
+                        {'detail': 'Request timeout occured. Please re-submit your request later.'}, 408
+                    )
+
+                except client_exceptions.ClientConnectorError:
+                    logger.critical('Connection error while request to service: {0}, {1}'.format(service, request_type))
+                    self.responses[service] = {'detail': 'Service unavailable.'}, 503
+
+                except client_exceptions.ServerDisconnectedError:
+                    logger.critical('Server refused the request to service: {0}, {1}'.format(service, request_type))
+                    self.responses[service] = {'detail': 'Service refused the request.'}, 444
+
+                except client_exceptions.ContentTypeError:
+                    logger.critical('Server response has unexpected mime type: {0}, {1}'.format(service, request_type))
+                    self.responses[service] = {'detail': 'Service returned unexpected data format. Try later.'}, 415
 
         finally:
             await self.session.close()

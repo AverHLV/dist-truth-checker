@@ -37,7 +37,7 @@ load_encoding = 'utf8'
 
 # texts.arclient
 
-timeout = 20
+timeout = 10
 
 if environ['DJANGO_SETTINGS_MODULE'] == 'config.settings.production':
     services = {
