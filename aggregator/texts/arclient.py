@@ -102,6 +102,10 @@ class ARClient(object):
                     )
 
                 except client_exceptions.ClientConnectorError:
+                    logger.critical('Connection reset while request to service: {0}, {1}'.format(service, request_type))
+                    self.responses[service] = {'detail': 'Connection reset by peer. Try later.'}, 520
+
+                except client_exceptions.ClientOSError:
                     logger.critical('Connection error while request to service: {0}, {1}'.format(service, request_type))
                     self.responses[service] = {'detail': 'Service unavailable.'}, 503
 
