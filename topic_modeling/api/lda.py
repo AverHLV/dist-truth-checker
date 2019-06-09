@@ -138,14 +138,11 @@ class Corpora(object):
         """ Delete specific words or stopwords from corpora """
 
         if words is None:
-            self.__corpora = [
-                sub(r' ({0}) '.format('|'.join(self.stopwords)), ' ', string) for string in self.__corpora
-            ]
+            words = self.stopwords
 
-        else:
-            self.__corpora = [
-                sub(r' ({0}) '.format('|'.join(words)), ' ', string) for string in self.__corpora
-            ]
+        self.__corpora = [
+            sub(r' ({0}) '.format('|'.join(words)), ' ', string) for string in self.__corpora
+        ]
 
     def tf_idf(self, thresholds):
         """ Delete uninformative words by TF-IDF value """
