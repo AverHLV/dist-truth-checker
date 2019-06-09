@@ -22,8 +22,8 @@ class ARClient(object):
         :param services: dict like {service: ip}
         """
 
-        self.responses = None
         self.session = None
+        self.responses = {}
         self.timeout = timeout
         self.services = services
 
@@ -65,8 +65,6 @@ class ARClient(object):
             False - send post requests for starting a text check
         """
 
-        self.responses = {}
-
         self.session = aiohttp.ClientSession(
             headers=self.headers,
             timeout=aiohttp.ClientTimeout(total=self.timeout),
@@ -79,8 +77,6 @@ class ARClient(object):
 
             else:
                 assert isinstance(parameter, dict), '"parameter" should be a dictionary in gather_results=False case.'
-
-            self.responses = {}
 
             for service in self.services:
                 request_type = 'None'
