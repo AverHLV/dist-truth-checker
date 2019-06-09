@@ -42,28 +42,13 @@ def get_status_repr(results):
     :return: str
     """
 
-    status = get_check_status(results)
-
-    if status == 2:
-        return 'It`s definitely truth.'
-
-    if status == 1:
-        return 'Probably it`s truth.'
-
-    if status == -1:
+    if isinstance(results[0], str) or isinstance(results[1], str):
         return 'No data for making decision.'
 
-    return 'Most likely it is fake.'
-
-
-def get_check_status(results):
-    if isinstance(results[0], str) or isinstance(results[1], str):
-        return -1
-
     if results[0] and results[1]:
-        return 2
+        return 'It`s definitely truth.'
 
     if results[0] or results[1]:
-        return 1
+        return 'Probably it`s truth.'
 
-    return 0
+    return 'Most likely it`s a fake.'

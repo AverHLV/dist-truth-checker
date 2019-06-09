@@ -65,6 +65,12 @@ class ARClient(object):
             False - send post requests for starting a text check
         """
 
+        if gather_results:
+            assert isinstance(parameter, str), '"parameter" should be a string in gather_results=True case.'
+
+        else:
+            assert isinstance(parameter, dict), '"parameter" should be a dictionary in gather_results=False case.'
+
         self.session = aiohttp.ClientSession(
             headers=self.headers,
             timeout=aiohttp.ClientTimeout(total=self.timeout),
@@ -72,12 +78,6 @@ class ARClient(object):
         )
 
         try:
-            if gather_results:
-                assert isinstance(parameter, str), '"parameter" should be a string in gather_results=True case.'
-
-            else:
-                assert isinstance(parameter, dict), '"parameter" should be a dictionary in gather_results=False case.'
-
             for service in self.services:
                 request_type = 'None'
 
@@ -98,12 +98,12 @@ class ARClient(object):
                     )
 
                 except client_exceptions.ClientConnectorError:
-                    logger.critical('Connection reset while request to service: {0}, {1}'.format(service, request_type))
-                    self.responses[service] = {'detail': 'Connection reset by peer. Try later.'}, 520
-
-                except client_exceptions.ClientOSError:
                     logger.critical('Connection error while request to service: {0}, {1}'.format(service, request_type))
                     self.responses[service] = {'detail': 'Service unavailable.'}, 503
+
+                except client_exceptions.ClientOSError:
+                    logger.critical('Connection reset while request to service: {0}, {1}'.format(service, request_type))
+                    self.responses[service] = {'detail': 'Connection reset by peer. Try again.'}, 520
 
                 except client_exceptions.ServerDisconnectedError:
                     logger.critical('Server refused the request to service: {0}, {1}'.format(service, request_type))
