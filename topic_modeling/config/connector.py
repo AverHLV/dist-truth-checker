@@ -19,6 +19,11 @@ class MongoClusterConnector(object):
         self.client = MongoClient([db[1] + ':' + db[2] for db in self.databases], replicaset='rs0')
         sleep(discover_timeout)
 
+    def __str__(self):
+        return 'MongoDB cluster connector.\nCluster nodes: {0},\nCluster primary: {1}.'.format(
+            list(self.client.nodes), self.client.primary
+        )
+
     def __del__(self):
         """ Destructor: close MongoClient before destruction """
 
@@ -50,10 +55,22 @@ class MongoClusterConnector(object):
         nodes = [node[0] for node in list(self.client.nodes)]
 
         if primary is None:
+            if not len(nodes):
+                raise MongoNoSecondary
+
             return self.find_alias(nodes[randint(0, len(nodes) - 1)])
 
         nodes.remove(primary)
         return self.find_alias(nodes[randint(0, len(nodes) - 1)])
+
+
+class MongoNoSecondary(Exception):
+    """ No alive secondary nodes exception """
+
+    message = 'No secondary nodes in the cluster.'
+
+    def __str__(self):
+        return self.message
 
 
 cluster_connector = MongoClusterConnector()
