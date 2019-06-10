@@ -34,7 +34,7 @@ class CheckText(APIView):
     @staticmethod
     def post(request):
         if cluster_connector is not None:
-            if cluster_connector.get_primary() is None:
+            if not cluster_connector.is_writable():
                 return Response(
                     {'detail': 'Service is in read-only mode.'}, status=status.HTTP_409_CONFLICT,
                     content_type='application/json'

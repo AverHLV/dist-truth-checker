@@ -15,6 +15,7 @@ class MongoClusterConnector(object):
         :param discover_timeout: timeout for discovering whole cluster by MongoClient
         """
 
+        self.quorum = len(databases)
         self.databases = [(db, databases[db]['HOST'], str(databases[db]['PORT'])) for db in databases]
         self.client = MongoClient([db[1] + ':' + db[2] for db in self.databases], replicaset='rs0')
         sleep(discover_timeout)
@@ -63,11 +64,19 @@ class MongoClusterConnector(object):
         nodes.remove(primary)
         return self.find_alias(nodes[randint(0, len(nodes) - 1)])
 
+    def is_writable(self):
+        """ Check MongoDB cluster consistency for write operations """
+
+        if self.get_primary(return_alias=False) is not None and len(self.client.nodes) == self.quorum:
+            return True
+
+        return False
+
 
 class MongoNoSecondary(Exception):
     """ No alive secondary nodes exception """
 
-    message = 'No secondary nodes in the cluster.'
+    message = 'No alive secondary nodes in the cluster.'
 
     def __str__(self):
         return self.message
