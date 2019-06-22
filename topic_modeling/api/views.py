@@ -1,4 +1,3 @@
-from django.views.decorators.cache import never_cache
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -33,7 +32,6 @@ class CheckText(APIView):
     """ Create Text instance, perform topic modeling and return results """
 
     @staticmethod
-    @never_cache
     def post(request):
         if cluster_connector is not None:
             if not cluster_connector.is_writable():
